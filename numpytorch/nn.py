@@ -1,6 +1,6 @@
 from typing import Tuple, Iterator, List
 import numpy as np
-from activations import Activation, Identity
+from .activations import Activation, Identity
 
 
 class Param:

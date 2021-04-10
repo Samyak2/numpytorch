@@ -1,7 +1,7 @@
 from typing import Tuple
 import numpy as np
 
-from nn import Param
+from .nn import Param
 
 
 class Optimizer:
