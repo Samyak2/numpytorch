@@ -23,3 +23,11 @@ I don't plan to develop this further, but if you want to learn, you can try impl
  - [ ] More optimisers. `numpytorch/optim.py` has only one optimiser (Stochastic Gradient Descent, SGD) with support for L2 regularization and momentum. The [ADAM](https://arxiv.org/abs/1412.6980) optimiser would be a nice addition.
  - [ ] Automatic differentiation. Currently, backward passes (derivatives) have to be hand-coded into all the activation functions, layers, etc. Integrating some kind of automatic differentiation library (like [autograd](https://github.com/HIPS/autograd) or [autodidact](https://github.com/mattjj/autodidact)) would make this a lot less painful to customize. You could also try writing your own automatic differentiation library, that will be a fun project! ([ref](https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L06%20Automatic%20Differentiation.pdf))
  - [ ] Other fancy layers like convolution, recurrent cells, etc.
+
+## Acknowledgements
+
+Team members [Aayush](https://github.com/NaikAayush/) and [Bhargav](https://github.com/bhargavsk1077/) for helping.
+
+## License
+
+numpytorch is [MIT Licensed](./LICENSE)
