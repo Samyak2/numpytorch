@@ -1,4 +1,4 @@
-from typing import Tuple, Iterator, List
+from typing import Any, Optional, Sequence, Tuple, Iterator, List, Type, Union
 import numpy as np
 from .activations import Activation, Identity
 
@@ -35,7 +35,7 @@ class Module:
         raise NotImplementedError("This module does not have a backward pass")
 
     @staticmethod
-    def _add_param(params: List, attr):
+    def _add_param(params: List[Any], attr):
         if isinstance(attr, Param):
             params.append(attr)
         elif isinstance(attr, Module):
@@ -43,7 +43,7 @@ class Module:
 
     def parameters(self) -> Tuple[Param, ...]:
         """Returns all trainable parameters"""
-        params = []
+        params: List[Param] = []
         for attr in vars(self).values():
             self._add_param(params, attr)
             # check if attr is iterablel
@@ -72,7 +72,7 @@ class Dense(Module):
         self,
         in_len: int,
         out_len: int,
-        activation: Activation = Identity,
+        activation: Type[Activation] = Identity,
         xavier_init: bool = False,
     ):
         super().__init__()
@@ -85,7 +85,7 @@ class Dense(Module):
         self.b = Param(np.random.randn(out_len))
         self.activation = activation()
 
-        self.z = None
+        self.z: np.ndarray = np.ndarray(())  # workaround to make empty array
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
         assert (
@@ -113,10 +113,10 @@ class Sequential(Module):
     All layers must be passed as different parameters.
     """
 
-    def __init__(self, *modules: Iterator[Module]):
+    def __init__(self, *modules: Module):
         super().__init__()
-        self.modules = tuple(modules)
-        self.outs = []
+        self.modules: Tuple[Module, ...] = modules
+        self.outs: List[np.ndarray] = []
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
         self.outs = [x]
